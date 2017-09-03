@@ -33,10 +33,20 @@ syntax = "proto2";
 		required int64 ID = 1;
 		required string name = 2;
 		repeated MenuItem menuitems = 3;
+		repeated MenuItem specials = 4;
 	}
 
 	message MenuItem {
 		required int64 ID = 1;
 		required string name = 2;
 		required string description = 3;
+	}
+
+	message Promotion {
+		required string code = 1;
+		required string name = 2;
+		required string description = 3;
+		repeated MenuItem menuitems = 4;
+		required int64 effectivedate = 5;
+		required int64 enddate = 6;
 	}
