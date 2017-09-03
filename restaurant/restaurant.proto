@@ -1,52 +1,81 @@
 syntax = "proto2";
-	package restaurant;
+package restaurant;
 
 
-	message Address {
-		required int64 ID = 1;
-		required string addressLine1  = 2;
-		optional string addressLine2  = 3;
-		optional string addressLine3  = 4;
-		required string city  = 5;
-		required string state  = 6;
-		required string zip  = 7;
-	}
+message Address {
+	required int64 ID = 1;
+	required string address_line1  = 2;
+	optional string address_line2  = 3;
+	optional string address_line3  = 4;
+	required string city  = 5;
+	required string state  = 6;
+	required string zip  = 7;
+}
 
-	message Phone {
-		required string number  = 1;
-	}
+message Phone {
+	required string number  = 1;
+}
 
-	message Restaurant {
-		required int64 ID = 1;
-		required string name = 2;
-		required Address address = 3;
-		optional Phone phone = 4;
-	}
+message Restaurant {
+	required int64 ID = 1;
+	required string name = 2;
+	required Address address = 3;
+	optional Phone phone = 4;
+}
 
-	message MenuCalendar {
-		required int64 effectivedate = 1;
-		required int64 enddate = 2;
-		repeated Menu menu = 3;
-	}
+message MenuCalendar {
+	required int64 effective_date = 1;
+	required int64 enddate = 2;
+	repeated Menu menu = 3;
+}
 
-	message Menu {
-		required int64 ID = 1;
-		required string name = 2;
-		repeated MenuItem menuitems = 3;
-		repeated MenuItem specials = 4;
-	}
+message Menu {
+	required int64 ID = 1;
+	required string name = 2;
+	repeated MenuItem menuitems = 3;
+}
 
-	message MenuItem {
-		required int64 ID = 1;
-		required string name = 2;
-		required string description = 3;
-	}
+message MenuItem {
+	required int64 ID = 1;
+	required string name = 2;
+	required string description = 3;
+	required bool special_tag = 4;
+}
 
-	message Promotion {
-		required string code = 1;
-		required string name = 2;
-		required string description = 3;
-		repeated MenuItem menuitems = 4;
-		required int64 effectivedate = 5;
-		required int64 enddate = 6;
+message Promotion {
+	required string code = 1;
+	required string name = 2;
+	required string description = 3;
+	repeated MenuItem menuitems = 4;
+	required int64 effective_date = 5;
+	required int64 enddate = 6;
+}
+
+message CustomerOrder {
+	required int64 effective_date = 1;
+	repeated CustomerOrderMenuItem menuitems = 2;
+	repeated CustomerOrderAdjMenuItem adj_menuitems = 3;
+}
+
+message CustomerOrderMenuItem {
+	required MenuItem menuitem = 1;
+	required float price = 2;
+}
+
+message CustomerOrderAdjMenuItem {
+	required MenuItemAdjustment adj_menuitem = 1;
+	required float price = 2;
+}
+
+message MenuItemAdjustment {
+	required MenuItem menuitem = 1;
+	required int32 spicyness = 2;
+	required int32 sweetness = 3;
+	repeated Ingredient add_ingredient = 4;
+	repeated Ingredient remove_ingredient = 5;
+}
+
+message Ingredient {
+	required string name = 1;
+	required string description = 2;
 	}
