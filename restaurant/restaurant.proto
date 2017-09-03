@@ -1,13 +1,42 @@
 syntax = "proto2";
-	package example;
+	package restaurant;
 
-	enum FOO { X = 17; };
 
-	message Test {
-	  required string label = 1;
-	  optional int32 type = 2 [default=77];
-	  repeated int64 reps = 3;
-	  optional group OptionalGroup = 4 {
-	    required string RequiredField = 5;
-	  }
+	message Address {
+		required int64 ID = 1;
+		required string addressLine1  = 2;
+		optional string addressLine2  = 3;
+		optional string addressLine3  = 4;
+		required string city  = 5;
+		required string state  = 6;
+		required string zip  = 7;
+	}
+
+	message Phone {
+		required string number  = 1;
+	}
+
+	message Restaurant {
+		required int64 ID = 1;
+		required string name = 2;
+		required Address address = 3;
+		optional Phone phone = 4;
+	}
+
+	message MenuCalendar {
+		required int64 effectivedate = 1;
+		required int64 enddate = 2;
+		repeated Menu menu = 3;
+	}
+
+	message Menu {
+		required int64 ID = 1;
+		required string name = 2;
+		repeated MenuItem menuitems = 3;
+	}
+
+	message MenuItem {
+		required int64 ID = 1;
+		required string name = 2;
+		required string description = 3;
 	}
